@@ -13,5 +13,16 @@
     </ion-toolbar>
   </ion-header>
 
-  <app-explore-container name="Tab 2 page"></app-explore-container>
+  <ion-list>
+    @for (dato of datos; track dato.id) 
+      { <ion-item (click)="RecogerItem(dato)"> 
+          <ion-label>{{ dato.title }}</ion-label> 
+          <ion-checkbox
+            slot = "end"
+            disabled="true"
+            [checked] = 'dato.completed'>
+          </ion-checkbox>
+        </ion-item> }
+  </ion-list>
+  
 </ion-content>
