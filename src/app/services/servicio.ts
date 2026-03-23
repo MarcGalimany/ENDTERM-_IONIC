@@ -14,11 +14,9 @@ export class Servicio {
     return this.http.get<any[]>('https://jsonplaceholder.typicode.com/todos');
   }
   
-
-
   getMessageById(id: number){
 
-    return this.datos.find(item => item.id === id);
+    return this.http.get(`https://jsonplaceholder.typicode.com/todos/${id}`);
   }
 
 

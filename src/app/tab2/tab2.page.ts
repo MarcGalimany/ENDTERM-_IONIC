@@ -30,7 +30,7 @@ export class Tab2Page {
   RecogerItem(dato:any) 
     {
      console.log(dato);
-     this.router.navigate(['tabs/tab3']);
+     this.router.navigate(['tabs/tab3', dato.id]);
     }
 
 
