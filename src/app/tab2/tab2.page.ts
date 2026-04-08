@@ -4,6 +4,7 @@ import { ExploreContainerComponent } from '../explore-container/explore-containe
 import { Servicio } from '../services/servicio';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
+import { Autenticacion } from '../services/autenticacion.service';
 
 @Component({
   selector: 'app-tab2',
@@ -14,12 +15,15 @@ import { ActivatedRoute } from '@angular/router';
 export class Tab2Page {
 
   datos : any[] = [];
+  usuarioEmail: string | null = null;
 
   constructor(
     public servicio:Servicio,
     private router: Router, //Importar Router...
     private activatedRouter: ActivatedRoute,
+    private authService: Autenticacion,
   ) {
+
     this.servicio.getData()
     .subscribe(Response =>{ // Observable, Response contiene los datos cuando los recibe 
       this.datos = Response;
@@ -32,7 +36,12 @@ export class Tab2Page {
      console.log(dato);
      this.router.navigate(['tabs/tab3', dato.id]);
     }
-
+    
+  ngOnInit() {
+    this.authService.usuarioActual().subscribe(user => {
+    this.usuarioEmail = user?.email ?? null;
+      });
+  }
 
 
 

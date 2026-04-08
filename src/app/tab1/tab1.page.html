@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Tab 1
+      LOGIN
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -13,5 +13,30 @@
     </ion-toolbar>
   </ion-header>
 
-  <app-explore-container name="Tab 1 page"></app-explore-container>
+<ion-item class = "fondo_oscuro">
+  <ion-label>USUARIO</ion-label>
+
+  <ion-item class = "fondo">
+    <ion-input placeholder="Email" [(ngModel)]="email"></ion-input>
+  </ion-item>
+
+</ion-item>
+<ion-item class = "fondo_oscuro">
+  <ion-label>CONTRASEÑA</ion-label>
+
+  <ion-item class = "fondo">
+    <ion-input type="password" [(ngModel)]="password"></ion-input>
+  </ion-item>
+
+</ion-item>
+<ion-item>
+  <ion-button expand="full" (click)="login()"> Iniciar sesión</ion-button>
+  <ion-button expand="full" (click)="registro()"> Registro</ion-button>
+</ion-item>
+<ion-item>
+  <ion-label>USUARIO ACTUAL {{usuarioEmail}}</ion-label>
+
+</ion-item>
+
+
 </ion-content>
