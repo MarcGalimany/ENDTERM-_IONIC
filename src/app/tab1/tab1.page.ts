@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
   selector: 'app-tab1',
   templateUrl: 'tab1.page.html',
   styleUrls: ['tab1.page.scss'],
-  imports: [FormsModule, IonHeader, IonToolbar, IonTitle, IonContent, ExploreContainerComponent,
+  imports: [FormsModule, IonHeader, IonToolbar, IonTitle, IonContent,
      IonItem, IonInput, IonLabel,IonButton],
 })
 export class Tab1Page {
@@ -43,12 +43,24 @@ export class Tab1Page {
     try {
       const user = await this.authService.login(this.email, this.password);
       console.log('Login OK', user);
-      this.router.navigate(['tabs/tab2']);
+      this.usuarioEmail =  this.email ;
+      this.router.navigate(['menu-usuario']);
 
     } catch (error) {
+      this.usuarioEmail =  this.email + " no esta registrado";
       console.error('Error al iniciar sesión:', error);
     }
-  }
-
+    }
+    async loginGOOGLE() {
+    try {
+      await this.authService.loginConGOOGLE();
+      this.router.navigate(['menu-usuario']);
+      //this.router.navigate(['tab2']);
+    } 
+    catch (error) {
+      this.usuarioEmail =  this.email + " no esta registrado";
+      console.error('Error al iniciar sesión:', error);
+    }
+    }
 
 }

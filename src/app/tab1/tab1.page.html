@@ -13,6 +13,10 @@
     </ion-toolbar>
   </ion-header>
 
+<ion-item>
+  <ion-label> {{usuarioEmail}}</ion-label>
+</ion-item>
+
 <ion-item class = "fondo_oscuro">
   <ion-label>USUARIO</ion-label>
 
@@ -32,11 +36,9 @@
 <ion-item>
   <ion-button expand="full" (click)="login()"> Iniciar sesión</ion-button>
   <ion-button expand="full" (click)="registro()"> Registro</ion-button>
+  <ion-button expand="full" (click)="loginGOOGLE()">Login con GOOGLE</ion-button>
 </ion-item>
-<ion-item>
-  <ion-label>USUARIO ACTUAL {{usuarioEmail}}</ion-label>
 
-</ion-item>
 
 
 </ion-content>

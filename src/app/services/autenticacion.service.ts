@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Auth,createUserWithEmailAndPassword,signInWithEmailAndPassword,authState } from '@angular/fire/auth';
+import { Auth,createUserWithEmailAndPassword,signInWithEmailAndPassword,authState,GoogleAuthProvider, signInWithPopup, signInWithRedirect } from '@angular/fire/auth';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -20,6 +20,12 @@ export class Autenticacion {
 
     usuarioActual(): Observable<any> {
     return authState(this.auth);
-  }
+    }
+
+    loginConGOOGLE()
+    {
+    const provider = new GoogleAuthProvider();
+    return signInWithPopup(this.auth, provider);
+    }
 
 }

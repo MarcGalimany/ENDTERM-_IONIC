@@ -10,6 +10,7 @@ import { Autenticacion } from '../services/autenticacion.service';
   selector: 'app-tab2',
   templateUrl: 'tab2.page.html',
   styleUrls: ['tab2.page.scss'],
+  standalone: true,
   imports: [IonHeader, IonToolbar, IonTitle, IonContent, ExploreContainerComponent,IonList, IonLabel, IonItem, IonCheckbox]
 })
 export class Tab2Page {
@@ -34,7 +35,7 @@ export class Tab2Page {
   RecogerItem(dato:any) 
     {
      console.log(dato);
-     this.router.navigate(['tabs/tab3', dato.id]);
+     this.router.navigate(['/tab3', dato.id]);
     }
     
   ngOnInit() {

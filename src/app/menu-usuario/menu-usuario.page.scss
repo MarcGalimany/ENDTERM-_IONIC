@@ -1,0 +1,8 @@
+.clase_botones {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Centrado vertical */
+  align-items: center;     /* Centrado horizontal */
+  height: 100%;
+  gap: 16px;               /* Espacio entre botones */
+}
