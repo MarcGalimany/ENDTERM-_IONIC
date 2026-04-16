@@ -63,4 +63,8 @@ export class Tab1Page {
     }
     }
 
+    async logOut() {
+      await this.authService.logout();
+      this.router.navigate(['/tabs/tab1'], { replaceUrl: true });
+    }
 }

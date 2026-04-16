@@ -8,7 +8,7 @@ import { provideHttpClient } from '@angular/common/http';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { environment } from './environments/environment';
 import { provideAuth, getAuth } from '@angular/fire/auth';
-
+import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 
 bootstrapApplication(AppComponent, {
   providers: [
@@ -18,6 +18,7 @@ bootstrapApplication(AppComponent, {
     provideHttpClient(),
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
+    provideFirestore(() =>getFirestore())
 
   ],
 });

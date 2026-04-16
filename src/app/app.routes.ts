@@ -21,8 +21,14 @@ export const routes: Routes = [
     import('./tab3/tab3.page').then((m) => m.Tab3Page),
   },
   {
+    path: 'datos-firebase',
+    loadComponent: () => import('./datos-firebase/datos-firebase.page').then( m => m.DatosFirebasePage)
+  },
+
+  {
     path: '',
     loadChildren: () => import('./tabs/tabs.routes').then((m) => m.routes),
   },
+  
   
 ];

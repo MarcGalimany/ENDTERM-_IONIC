@@ -20,11 +20,11 @@ export class MenuUsuarioPage implements OnInit {
   ngOnInit() {
   }
 
-  ir_Tab2() {
+  ir_API() {
   this.router.navigateByUrl('/tab2', { replaceUrl: true });
   }
 
-  ir_Tab3() {
-  this.router.navigateByUrl('/tab2', { replaceUrl: true });
+  ir_datosFirebase() {
+  this.router.navigateByUrl('/datos-firebase', { replaceUrl: true });
   }
 }

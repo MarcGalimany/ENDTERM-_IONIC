@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Auth,createUserWithEmailAndPassword,signInWithEmailAndPassword,authState,GoogleAuthProvider, signInWithPopup, signInWithRedirect } from '@angular/fire/auth';
+import { Auth,createUserWithEmailAndPassword,signInWithEmailAndPassword,authState,GoogleAuthProvider,
+         signInWithPopup, signInWithRedirect,signOut } from '@angular/fire/auth';
+import { Route } from '@angular/router';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -7,7 +9,8 @@ import { Observable } from 'rxjs';
 })
 export class Autenticacion {
   
-  constructor(private auth:Auth){}
+  constructor(private auth:Auth
+  ){}
 
 
     registro(email: string, password: string) {
@@ -28,4 +31,7 @@ export class Autenticacion {
     return signInWithPopup(this.auth, provider);
     }
 
+    async logout() {
+    return await signOut(this.auth);
+    }
 }
