@@ -11,10 +11,62 @@
     </ion-toolbar>
   </ion-header>
 <ion-list>
+
+  <div class='Crear-Tarea'>
+    <ion-item>
+      <ion-input 
+                placeholder="Titulo para crear tarea"
+                [(ngModel)]="Tarea.TituloTarea">
+      </ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input placeholder="Tipo de tarea a crear"
+                [(ngModel)]="Tarea.TipoTarea">
+      </ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input placeholder="Descripción de la tarea a crear"
+                [(ngModel)]="Tarea.descripcion">
+      </ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input placeholder="Tiempo estimado"
+                [(ngModel)]="Tarea.HorasEnRealizarTarea">
+      </ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-button  
+                  (click)="NuevaTarea()">
+          Crear nueva tarea
+      </ion-button>
+    </ion-item>
+   
+  </div>
+
   <ion-item *ngFor="let item of items">
-    <ion-label>
-      {{ item.descripcion }}
-    </ion-label>
+    
+    <ion-card [ngClass]="{ 'card-verde': item.TareaRealizada, 
+                            'card-rojo': !item.TareaRealizada,}">
+      <ion-card-header>
+      <ion-card-title>{{item.TituloTarea}}</ion-card-title>
+      <ion-card-subtitle>{{item.TipoTarea}}</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content> {{item.descripcion}} <br>
+      Esta tarea tiene una previsión de {{item.HorasEnRealizarTarea}} horas 
+      </ion-card-content>
+      <ion-item [ngClass]="{ 'card-verde': item.TareaRealizada, 
+                            'card-rojo': !item.TareaRealizada,}">
+        <ion-checkbox  
+            [checked]="item.TareaRealizada"
+            (ionChange)="ActualizarTareaRealizada(item, $event)" >Tarea realizada 
+        </ion-checkbox>
+      </ion-item>
+      <ion-button (click)="BorrarTarea(item)">
+        Eliminar la tarea
+      </ion-button>
+    </ion-card>
+
+
   </ion-item>
 </ion-list>
 
