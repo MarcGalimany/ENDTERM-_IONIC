@@ -12,7 +12,7 @@
   </ion-header>
 <ion-list>
 
-  <div class='Crear-Tarea'>
+  <div class='Input-fijo'>
     <ion-item>
       <ion-input 
                 placeholder="Titulo para crear tarea"
@@ -63,6 +63,9 @@
       </ion-item>
       <ion-button (click)="BorrarTarea(item)">
         Eliminar la tarea
+      </ion-button>
+      <ion-button (click)="CompartirTexto(item.TituloTarea)">
+        Compartir título de la tarea
       </ion-button>
     </ion-card>
 

@@ -4,10 +4,26 @@ import { Routes } from '@angular/router';
 export const routes: Routes = [
 
   {
+    path: '',
+    redirectTo: 'menu-usuario',
+    pathMatch: 'full'
+  },
+
+
+
+  {
     path: 'menu-usuario',
     canActivate: [AuthGuard],
     loadComponent: () => import('./menu-usuario/menu-usuario.page').then((m) => m.MenuUsuarioPage),
   },
+     {
+    path: 'pagina-juego',
+    loadComponent: () => import('./pagina-juego/pagina-juego.page').then( m => m.PaginaJuegoPage)
+  },
+
+
+
+
   {
     path: 'tab2',
     canActivate: [AuthGuard],
@@ -24,6 +40,7 @@ export const routes: Routes = [
     path: 'datos-firebase',
     loadComponent: () => import('./datos-firebase/datos-firebase.page').then( m => m.DatosFirebasePage)
   },
+ 
 
   {
     path: '',

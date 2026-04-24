@@ -1,17 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonItem,IonLabel, IonList,IonGrid,IonCol,IonRow,IonCard,
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonItem,IonList,IonCard,
         IonCardHeader,IonCardTitle ,IonCardSubtitle,IonCardContent,IonCheckbox,IonButton, IonInput} from '@ionic/angular/standalone';
 import { CRUDFirebase } from '../services/crud-firebase';
+import { Compartir } from '../services/compartir';
 
 @Component({
   selector: 'app-datos-firebase',
   templateUrl: './datos-firebase.page.html',
   styleUrls: ['./datos-firebase.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule,IonItem,IonLabel,IonList,IonGrid,IonCol,
-            IonRow,IonCard,IonCardHeader,IonCardTitle, IonCardSubtitle,IonCardContent,IonCheckbox,IonButton,IonInput ]
+  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule,IonItem,IonList,
+            IonCard,IonCardHeader,IonCardTitle, IonCardSubtitle,IonCardContent,IonCheckbox,IonButton,IonInput ]
 })
 export class DatosFirebasePage implements OnInit {
 
@@ -27,7 +28,9 @@ export class DatosFirebasePage implements OnInit {
 
 
 
-  constructor(private crudFirebase:CRUDFirebase ) { }
+  constructor(private crudFirebase:CRUDFirebase,
+              private compartir:Compartir
+  ) { }
 
     ngOnInit() {
     this.crudFirebase.read().subscribe(res => {
@@ -45,5 +48,11 @@ export class DatosFirebasePage implements OnInit {
 
   NuevaTarea(){
     this.crudFirebase.create(this.Tarea)
+  }
+
+  CompartirTexto(titulo:string){
+
+    this.compartir.CompartirTexto(titulo);
+
   }
 }

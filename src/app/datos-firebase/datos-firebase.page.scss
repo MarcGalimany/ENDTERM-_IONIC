@@ -26,3 +26,9 @@
   width: 100%;     
   border-radius: 0;
 }
+.Input-fijo {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: white;   // importante para que no se vea transparente
+}

@@ -27,4 +27,7 @@ export class MenuUsuarioPage implements OnInit {
   ir_datosFirebase() {
   this.router.navigateByUrl('/datos-firebase', { replaceUrl: true });
   }
+  ir_juego() {
+  this.router.navigateByUrl('/pagina-juego', { replaceUrl: true });
+  }
 }
