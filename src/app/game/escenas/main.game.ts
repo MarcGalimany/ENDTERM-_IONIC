@@ -4,18 +4,22 @@ export class MainScene extends Phaser.Scene {
     player!: Phaser.Physics.Arcade.Sprite;
     //cursors!: Phaser.Types.Input.Keyboard.CursorKeys;
     cursors!: any;
-
+    BotonInicio!: Phaser.GameObjects.Rectangle;
+    BotonPausa!:Phaser.GameObjects.Rectangle;
     //coins!: Phaser.Physics.Arcade.Sprite;
     coins!: Phaser.Types.Physics.Arcade.SpriteWithDynamicBody;
     Distraccion1!: Phaser.Types.Physics.Arcade.SpriteWithDynamicBody;
     score: number = 0;
     ScoreText!: Phaser.GameObjects.Text;
     DistraccionText!: Phaser.GameObjects.Text;
+    TextoInicio!:Phaser.GameObjects.Text;
+    TextoPausa!:Phaser.GameObjects.Text;
+    Usuario!:Phaser.GameObjects.Text;
     Distracciones:number = 0;
     numero: number = 0;
     Eje_Y: any;
     VelocidadExamen: any;
-    
+    JuegoEnMarxa:number = 0;
 
     constructor (){
         super ('MainScene')
@@ -33,27 +37,100 @@ export class MainScene extends Phaser.Scene {
         //cursor
         this.cursors = this.input.keyboard?.createCursorKeys();
         //fondo
-        this.add.image(0.2, 0.2, 'fondo').setOrigin(0, 0);
-        //tiempo
-        this.ScoreText = this.add.text(600, 200, 'Puntuación:'+ this.score, {
-          fontSize: '52px',
+        const fondojuego = this.add.image(0,0, 'fondo').setOrigin(0, 0);
+        fondojuego.setDisplaySize(this.scale.width, this.scale.height);
+
+
+        //Botones  de inicio
+        this.BotonInicio = this.add.rectangle(
+          this.scale.width / 2,   
+          this.scale.height / 2,  
+          300,                    
+          100,                    
+          0x1e90ff,               
+          1                       
+        )
+        this.BotonInicio.setStrokeStyle(4, 0xffffff)
+        this.BotonInicio.setInteractive({useHandCursor: true });
+        this.BotonInicio.setDepth(10);
+        this.BotonInicio.on('pointerdown', () => {
+          this.JuegoEnMarxa = 1
+          this.BotonInicio.setVisible(false)
+          this.TextoInicio.setVisible(false)
+          this.BotonPausa.setVisible(true)
+          this.TextoPausa.setVisible(true)
+          //console.log(this.JuegoEnMarxa)
+        })
+        this.TextoInicio = this.add.text(
+          this.scale.width / 2,
+          this.scale.height / 2,
+          'INICIAR JUEGO',
+          {
+          fontSize: '32px',
+          color: '#ffffff',
+          fontFamily: 'Arial'
+          }
+        )
+        this.TextoInicio.setOrigin(0.5)   
+        this.TextoInicio.setDepth(11); 
+
+        //Boton de pausa
+        this.BotonPausa = this.add.rectangle(
+          this.scale.width -680,   
+          this.scale.height -640,  
+          200,                    
+          50,                    
+          0x1e90ff,               
+          1                       
+        )
+        this.BotonPausa.setStrokeStyle(4, 0xffffff)
+        this.BotonPausa.setInteractive({useHandCursor: true });
+        this.BotonPausa.setDepth(11);
+        this.BotonPausa.on('pointerdown', () => {
+          if(this.JuegoEnMarxa == 0){
+            this.JuegoEnMarxa = 1}
+            else{
+              this.JuegoEnMarxa = 0
+            }
+                   
+        })
+        this.TextoPausa = this.add.text(
+          this.scale.width -680,
+          this.scale.height -640,
+          'Pausar juego',
+          {
+          fontSize: '32px',
+          color: '#ffffff',
+          fontFamily: 'Arial'
+          }
+        )
+        this.TextoPausa.setOrigin(0.5)   
+        this.TextoPausa.setDepth(11); 
+        this.BotonPausa.setVisible(false)
+        this.TextoPausa.setVisible(false)
+
+
+        //textos de puntuaciones y usuario
+         this.ScoreText = this.add.text(this.scale.width /3,this.scale.height /4, 'Puntuación:'+ this.score, {
+          fontSize: '30px',
           color: '#ffffff',
           fontFamily: 'Arial'
         });
-        this.DistraccionText = this.add.text(600, 400, 'Distraciones:'+ this.score, {
-          fontSize: '52px',
+
+        this.DistraccionText = this.add.text(this.scale.width /3,this.scale.height /5, 'Distraciones:'+ this.score, {
+          fontSize: '30px',
           color: '#ffffff',
           fontFamily: 'Arial'
         });
+
         
-        
-        
+        //Tiempo y valores aleatorios
         this.time.addEvent({
             delay: 1000,
             callback: () => {
-                this.numero = Phaser.Math.Between(1,10);
-                this.VelocidadExamen = Phaser.Math.Between(20,100);
-                this.Eje_Y = Phaser.Math.Between(500, 1000);
+                this.numero = Phaser.Math.Between(3,7);
+                this.VelocidadExamen = Phaser.Math.Between(20,200);
+                this.Eje_Y = Phaser.Math.Between(300, 1000);
                 //console.log(this.numero);
             },
             loop: true,
@@ -64,12 +141,11 @@ export class MainScene extends Phaser.Scene {
    
        
         //personaje
-        this.player = this.physics.add.sprite(800, 800, 'player');
-        this.player. setDisplaySize(160,200);
+        this.player = this.physics.add.sprite(800, 800, 'player');        
         this.player.setCollideWorldBounds(true);
         this.player.setVelocityY(0);
         this.player.setVelocityX(0); 
-
+        this.player.setScale(0.3);
         
     }
 //***************************Funciones para crear objetos  a recojer***************************/
@@ -77,14 +153,14 @@ export class MainScene extends Phaser.Scene {
     CrearExamen(){
         this.coins = this.physics.add
             .sprite(300, this.Eje_Y, 'coins')
-            .setDisplaySize(60, 60) as Phaser.Types.Physics.Arcade.SpriteWithDynamicBody;
+            .setDisplaySize(100, 100) as Phaser.Types.Physics.Arcade.SpriteWithDynamicBody;
         this.coins.body.setAllowGravity(false);
         this.coins.setVelocityX(this.VelocidadExamen);
         this.physics.add.overlap(this.player, this.coins, this.ColisionExamen, undefined, this);
     }
     ColisionExamen(player: any, coin: any) {
     this.score = this.score + 1;
-    this.ScoreText.setText('Score: ' + this.score);
+    this.ScoreText.setText('Puntuación: ' + this.score);
     coin.destroy();  
     }
 
@@ -102,23 +178,55 @@ export class MainScene extends Phaser.Scene {
     Distraccion1.destroy();  
     }
 
+    FinPartida(){
+      if (this.Distraccion1.active){
+        this.Distraccion1.destroy();
+      }
+      if (this.coins.active){
+        this.coins.destroy();
+      }
+
+    }
+
 //**************************************************************************************/
     override update(time:number, delta:number){
+    
+    if(this.Distracciones >= 3){
+      this.JuegoEnMarxa = 0
+      this.player.setVelocityX(0);
+      this.player.setVelocityY(0);
+      this.BotonInicio.setVisible(true)
+      this.TextoInicio.setVisible(true)
+      this.BotonPausa.setVisible(false)
+      this.TextoPausa.setVisible(false)
+      this.Distracciones = 0
+      this.score = 0
+      this.FinPartida()
+    }
+    if(this.JuegoEnMarxa === 0){
+      this.player.setVelocityX(0);
+      this.player.setVelocityY(0);
+      
+    }
 
 
+
+    
+    if(this.JuegoEnMarxa === 1){
+    
       //********Cursores**************/
       if (this.cursors.left?.isDown) {
-        this.player.setVelocityX(-160);
+        this.player.setVelocityX(-260);
       } else if (this.cursors.right?.isDown) {
-        this.player.setVelocityX(160);
+        this.player.setVelocityX(260);
       } else {
         this.player.setVelocityX(0);
       }
 
       if (this.cursors.up?.isDown) {
-        this.player.setVelocityY(-160);
+        this.player.setVelocityY(-260);
       } else if (this.cursors.down?.isDown) {
-        this.player.setVelocityY(160);
+        this.player.setVelocityY(260);
       } else {
         this.player.setVelocityY(0);
       }
@@ -137,6 +245,6 @@ export class MainScene extends Phaser.Scene {
         this.CrearDistraccion1();
         this.numero = 0;
       }
-
+    }
     }
 }

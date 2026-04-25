@@ -3,8 +3,8 @@ import { MainScene } from './escenas/main.game'
 
 export const gameconf: Phaser.Types.Core.GameConfig = {
   type: Phaser.AUTO,
-  width: innerWidth,
-  height: innerHeight,
+  //width: innerWidth,
+  //height: innerHeight,
   parent: 'phase-game',
 physics: 
     {
@@ -14,10 +14,12 @@ physics:
             debug: false
         },
     },
-    scale: {
-        mode: Phaser.Scale.RESIZE,
-        autoCenter: Phaser.Scale.CENTER_BOTH
-    },
+  scale: {
+    mode: Phaser.Scale.FIT,        
+    autoCenter: Phaser.Scale.CENTER_BOTH, 
+    width: innerWidth,
+    height: innerHeight
+  },
 
     scene: [MainScene]
 }
